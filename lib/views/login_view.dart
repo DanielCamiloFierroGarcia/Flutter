@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'dart:developer' as devtools show log;
-
-import '../firebase_options.dart';
+import 'package:myproject/constants/routes.dart';
+import '../utilities/show_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -61,20 +59,25 @@ class _LoginViewState extends State<LoginView> {
               final email = _email.text;
               final password = _password.text;
               try {
-                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                await FirebaseAuth.instance.signInWithEmailAndPassword(
                   email: email,
                   password: password,
                 );
                 Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/notes/',
+                  notesRoute,
                   (route) => false,
                 );
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'user-not-found') {
-                  devtools.log('There is no user with those credentials');
+                  showErrorDialog(context, 'User not found');//aquie le quite el await a ver si existe algun problema
                 } else if (e.code == 'wrong-password') {
-                  devtools.log('Wrong password');
+                  await showErrorDialog(context, 'Wrong password');
                 }
+                else{
+                  await showErrorDialog(context, 'Error: ${e.code}');
+                }
+              } catch (e){
+                await showErrorDialog(context, e.toString());
               }
             },
             child: const Text('LogIn'),
@@ -82,7 +85,7 @@ class _LoginViewState extends State<LoginView> {
           TextButton(
             onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(
-                '/register/',
+                registerRoute,
                 (route) => false,
               );
             },
@@ -93,3 +96,5 @@ class _LoginViewState extends State<LoginView> {
     );
   }
 }
+
+
