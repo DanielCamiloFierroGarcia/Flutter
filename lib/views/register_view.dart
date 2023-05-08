@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myproject/constants/routes.dart';
 import 'package:myproject/services/auth/auth__service.dart';
-import 'package:myproject/utilities/show_dialog.dart';
 import 'dart:developer' as devtools show log;
 
 import '../services/auth/auth_exceptions.dart';
+import '../utilities/dialogs/error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
