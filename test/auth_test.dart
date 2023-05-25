@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:myproject/services/auth/auth_exceptions.dart';
 import 'package:myproject/services/auth/auth_provider.dart';
 import 'package:myproject/services/auth/auth_user.dart';
@@ -94,7 +92,7 @@ class MockAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitializedException();
     if(email == 'example@ex.com') throw UserNotFoundAuthException();
     if(password == 'example') throw WrongPasswordAuthException();
-    const user = AuthUser(isEmailVerified: false, email: 'dfierro192@gmail.com');
+    const user = AuthUser(isEmailVerified: false, email: 'dfierro192@gmail.com', id: "xdxdxxd");
     _user = user;
     return Future.value(user);
   }
@@ -112,7 +110,7 @@ class MockAuthProvider implements AuthProvider {
     if (!isInitialized) throw NotInitializedException();
     final user = _user;
     if(user == null) throw UserNotFoundAuthException();
-    const newUser = AuthUser(isEmailVerified: true, email: 'dfierro192@gmail.com');
+    const newUser = AuthUser(isEmailVerified: true, email: 'dfierro192@gmail.com', id: "xdxdxdxd");
     _user = newUser;
   }
 }
